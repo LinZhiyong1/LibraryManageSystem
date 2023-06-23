@@ -16,5 +16,12 @@ namespace LibraryManageSystem
         {
             InitializeComponent();
         }
+
+        private void 管理图书ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BookManagerForm bookForm = new BookManagerForm();
+            bookForm.ShowDialog();
+        }
+       
     }
 }

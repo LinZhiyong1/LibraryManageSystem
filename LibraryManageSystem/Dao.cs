@@ -10,25 +10,25 @@ namespace LibraryManageSystem
     class Dao
     {
         SqlConnection sqlConnection;
-        public SqlConnection connection()
+        public SqlConnection Connection()
         {
             string ServerString = "Data Source=YANFA05;Initial Catalog=lib_db;Integrated Security=True";
             sqlConnection = new SqlConnection(ServerString);
             sqlConnection.Open();
             return sqlConnection;
         }
-        public SqlCommand command(string sql)
+        public SqlCommand Command(string sql)
         {
-            SqlCommand cmd = new SqlCommand(sql, connection());
+            SqlCommand cmd = new SqlCommand(sql, Connection());
             return cmd;
         }
-        public int execute(string sql) 
+        public int Execute(string sql) 
         {
-            return command(sql).ExecuteNonQuery();
+            return Command(sql).ExecuteNonQuery();
         }
-        public SqlDataReader read(string sql)
+        public SqlDataReader Read(string sql)
         {
-            return command(sql).ExecuteReader();
+            return Command(sql).ExecuteReader();
         }
         public void DaoClose()
         {

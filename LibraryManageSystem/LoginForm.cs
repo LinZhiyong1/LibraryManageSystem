@@ -37,7 +37,7 @@ namespace LibraryManageSystem
             {
                 Dao dao = new Dao();
                 string sql = $"select * from tb_user where id = '{textBox1.Text}' and password = '{textBox2.Text}'";
-                IDataReader dataReader = dao.read(sql);
+                IDataReader dataReader = dao.Read(sql);
                 if (!dataReader.Read())
                 {
                     MessageBox.Show("登录失败！请检查用户名及密码！");
@@ -55,7 +55,7 @@ namespace LibraryManageSystem
             {
                 Dao dao = new Dao();
                 string sql = $"select * from tb_admin where id = '{textBox1.Text}' and password = '{textBox2.Text}'";
-                IDataReader dataReader = dao.read(sql);
+                IDataReader dataReader = dao.Read(sql);
                 if (!dataReader.Read())
                 {
                     MessageBox.Show("登录失败!请检查用户名及密码！");
