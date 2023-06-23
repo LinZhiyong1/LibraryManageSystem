@@ -12,7 +12,7 @@ namespace LibraryManageSystem
         SqlConnection sqlConnection;
         public SqlConnection connection()
         {
-            string ServerString = @"Data Source=YANFA05;Initial Catalog=lib_db;User ID=sa";
+            string ServerString = "Data Source=YANFA05;Initial Catalog=lib_db;Integrated Security=True";
             sqlConnection = new SqlConnection(ServerString);
             sqlConnection.Open();
             return sqlConnection;
