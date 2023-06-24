@@ -92,7 +92,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox1.Image = global::LibraryManageSystem.Properties.Resources.bgi3;
+            this.pictureBox1.Image = global::LibraryManageSystem.Properties.Resources.bgi;
             this.pictureBox1.Location = new System.Drawing.Point(0, 28);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(567, 336);

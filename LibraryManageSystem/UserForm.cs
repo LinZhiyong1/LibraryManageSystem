@@ -21,5 +21,17 @@ namespace LibraryManageSystem
         {
 
         }
+
+        private void 图书的查看和借阅ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LendBookForm lendBookForm = new LendBookForm();
+            lendBookForm.ShowDialog();
+        }
+
+        private void 当前ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReturnBookForm returnBookForm = new ReturnBookForm();
+            returnBookForm.ShowDialog();
+        }
     }
 }

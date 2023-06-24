@@ -17,7 +17,7 @@ namespace LibraryManageSystem
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             Dao dao = new Dao();
             if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "")
@@ -38,7 +38,7 @@ namespace LibraryManageSystem
             ClearTextBox();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             ClearTextBox();
         }

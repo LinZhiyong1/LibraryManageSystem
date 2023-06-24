@@ -21,7 +21,7 @@ namespace LibraryManageSystem
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBox1.Text))
             {

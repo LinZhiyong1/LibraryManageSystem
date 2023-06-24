@@ -17,7 +17,7 @@ namespace LibraryManageSystem
         {
             InitializeComponent();
         }
-        private void showTable()
+        private void ShowTable()
         {
             bool isChecked = checkBox1.Checked;
             string statusStr = isChecked ? "where number > 0" : "";
@@ -34,33 +34,37 @@ namespace LibraryManageSystem
         }
         private void BookManagerForm_Load(object sender, EventArgs e)
         {
-            DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
-            btn.Name = "Modify";
-            btn.HeaderText = "更新";
+            DataGridViewButtonColumn btn = new DataGridViewButtonColumn
+            {
+                Name = "Modify",
+                HeaderText = "更新"
+            };
             btn.DefaultCellStyle.NullValue = "Modify";
             dataGridView1.Columns.Add(btn);
 
-            DataGridViewButtonColumn btn2 = new DataGridViewButtonColumn();
-            btn2.Name = "Delete";
-            btn2.HeaderText = "删除";
+            DataGridViewButtonColumn btn2 = new DataGridViewButtonColumn
+            {
+                Name = "Delete",
+                HeaderText = "删除"
+            };
             btn2.DefaultCellStyle.NullValue = "Delete";
             dataGridView1.Columns.Add(btn2);
-            showTable();
+            ShowTable();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             AddBookForm addBookForm = new AddBookForm();
             addBookForm.ShowDialog();
-            showTable();
+            ShowTable();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             string description = textBox1.Text;
             if (string.IsNullOrEmpty(description))
             {
-                showTable();
+                ShowTable();
                 return;
             }
             bool isChecked = checkBox1.Checked;
@@ -77,7 +81,7 @@ namespace LibraryManageSystem
             dao.DaoClose();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.Columns[e.ColumnIndex].Name == "Delete" && e.RowIndex >= 0)
             {
@@ -92,7 +96,7 @@ namespace LibraryManageSystem
                 if (dao.Execute(sql) > 0)
                 {
                     MessageBox.Show("删除成功！");
-                    showTable();
+                    ShowTable();
                 }
                 else
                 { 
@@ -109,15 +113,15 @@ namespace LibraryManageSystem
                 string number = Convert.ToString(dataGridView1.CurrentRow.Cells[4].Value);
                 EditBookForm editBookForm = new EditBookForm(id, name, author, press, number);
                 editBookForm.ShowDialog();
-                showTable();
+                ShowTable();
             }
         }
 
-        private void button1_KeyDown(object sender, KeyEventArgs e)
+        private void Button1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                button1_Click(this.button1, EventArgs.Empty);
+                Button1_Click(this.button1, EventArgs.Empty);
             }
         }
     }
