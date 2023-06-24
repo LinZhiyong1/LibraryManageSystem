@@ -18,7 +18,7 @@ namespace LibraryManageSystem
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
 
         }
@@ -26,7 +26,18 @@ namespace LibraryManageSystem
         {
             string sql = $"select bid datetime from tb_lend where uid = {Model.UID} and name = {Model.UName}";
             Dao dao = new Dao();
-            dao.Execute(sql);
+            IDataReader dataReader = dao.Read(sql);
+            while (dataReader.Read())
+            {
+                dataGridView1.Rows.Add(dataReader[0].ToString(), dataReader[1].ToString());
+            }
+            dataReader.Close();
+            dao.DaoClose();
+        }
+
+        private void ReturnBookForm_Load(object sender, EventArgs e)
+        {
+            ShowTable();
         }
     }
     
