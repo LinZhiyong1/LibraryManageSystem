@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,12 +19,11 @@ namespace LibraryManageSystem
         }
         private void showTable()
         {
-            //bool isChecked = checkBox1.Checked;
-            //char symbol = isChecked ? '>' : '=';
-            //string sql = $"select * from tb_book where number {symbol} 0";
+            bool isChecked = checkBox1.Checked;
+            string statusStr = isChecked ? "where number > 0" : "";
             dataGridView1.Rows.Clear();
             Dao dao = new Dao();
-            string sql = $"select * from tb_book";
+            string sql = $"select * from tb_book {statusStr}";
             IDataReader dataReader = dao.Read(sql);
             while (dataReader.Read())
             {
@@ -36,16 +36,89 @@ namespace LibraryManageSystem
         {
             DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
             btn.Name = "Modify";
-            btn.HeaderText = "操作";
-            btn.DefaultCellStyle.NullValue = "修改";
+            btn.HeaderText = "更新";
+            btn.DefaultCellStyle.NullValue = "Modify";
             dataGridView1.Columns.Add(btn);
-            
-            /*DataGridViewButtonColumn btn2 = new DataGridViewButtonColumn();
-            btn2.Name = "delete";
-            btn2.HeaderText = "操作";
-            btn2.DefaultCellStyle.NullValue = "删除";
-            dataGridView1.Columns.Add(btn2);*/  
+
+            DataGridViewButtonColumn btn2 = new DataGridViewButtonColumn();
+            btn2.Name = "Delete";
+            btn2.HeaderText = "删除";
+            btn2.DefaultCellStyle.NullValue = "Delete";
+            dataGridView1.Columns.Add(btn2);
             showTable();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AddBookForm addBookForm = new AddBookForm();
+            addBookForm.ShowDialog();
+            showTable();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string description = textBox1.Text;
+            if (string.IsNullOrEmpty(description))
+            {
+                showTable();
+                return;
+            }
+            bool isChecked = checkBox1.Checked;
+            string statusStr = isChecked ? "where number > 0 and " : "where";
+            dataGridView1.Rows.Clear();
+            Dao dao = new Dao();
+            string sql = $"select * from tb_book {statusStr} id like '%{description}%' or name like '%{description}%'";
+            IDataReader dataReader = dao.Read(sql);
+            while (dataReader.Read())
+            {
+                dataGridView1.Rows.Add(dataReader[0].ToString(), dataReader[1].ToString(), dataReader[2].ToString(), dataReader[3].ToString(), dataReader[4].ToString());
+            }
+            dataReader.Close();
+            dao.DaoClose();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Delete" && e.RowIndex >= 0)
+            {
+                string id = Convert.ToString(dataGridView1.CurrentRow.Cells[0].Value);
+                DialogResult dialog = MessageBox.Show("确认删除吗？", "消息提示", MessageBoxButtons.OKCancel); // OK|Cancel
+                if(DialogResult.Cancel == dialog)
+                {
+                    return;
+                }
+                string sql = $"delete from tb_book where id = '{id}'";
+                Dao dao = new Dao();
+                if (dao.Execute(sql) > 0)
+                {
+                    MessageBox.Show("删除成功！");
+                    showTable();
+                }
+                else
+                { 
+                    MessageBox.Show("删除失败！");
+                }
+                dao.DaoClose(); 
+            }
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Modify" && e.RowIndex >= 0)
+            {
+                string id = Convert.ToString(dataGridView1.CurrentRow.Cells[0].Value);
+                string name = Convert.ToString(dataGridView1.CurrentRow.Cells[1].Value);
+                string author = Convert.ToString(dataGridView1.CurrentRow.Cells[2].Value);
+                string press = Convert.ToString(dataGridView1.CurrentRow.Cells[3].Value);
+                string number = Convert.ToString(dataGridView1.CurrentRow.Cells[4].Value);
+                EditBookForm editBookForm = new EditBookForm(id, name, author, press, number);
+                editBookForm.ShowDialog();
+                showTable();
+            }
+        }
+
+        private void button1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1_Click(this.button1, EventArgs.Empty);
+            }
         }
     }
 }
