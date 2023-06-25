@@ -124,5 +124,13 @@ namespace LibraryManageSystem
                 Button1_Click(this.button1, EventArgs.Empty);
             }
         }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Button1_Click(sender, e);
+            }
+        }
     }
 }

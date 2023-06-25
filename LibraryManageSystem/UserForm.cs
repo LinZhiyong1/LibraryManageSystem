@@ -33,5 +33,15 @@ namespace LibraryManageSystem
             ReturnBookForm returnBookForm = new ReturnBookForm();
             returnBookForm.ShowDialog();
         }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void 联系管理员ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("请登录管理员账户！");
+        }
     }
 }

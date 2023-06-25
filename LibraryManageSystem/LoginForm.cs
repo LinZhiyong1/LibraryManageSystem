@@ -20,7 +20,6 @@ namespace LibraryManageSystem
         {
 
         }
-
         private void Button1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBox1.Text))
@@ -68,12 +67,17 @@ namespace LibraryManageSystem
                 dao.DaoClose();
             }
         }
-        private void Button1_KeyDown(object sender, KeyEventArgs e)
+        private void LoginForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Button1_Click(this.button1, EventArgs.Empty);
+                Button1_Click(sender, e);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }   

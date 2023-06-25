@@ -19,6 +19,7 @@ namespace LibraryManageSystem
         }
         private void Button1_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear();
             string description = textBox1.Text;
             string sql = $"select * from tb_lend where bid like '%{description}%' or datetime like '%{description}%'";
             Dao dao = new Dao();
@@ -65,6 +66,14 @@ namespace LibraryManageSystem
                 MessageBox.Show($"{Model.UName}已归还借阅号为{no}的图书");
                 ShowTable();
             } 
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Button1_Click(sender, e);
+            }
         }
     }
     

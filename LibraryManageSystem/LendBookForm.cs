@@ -82,5 +82,13 @@ namespace LibraryManageSystem
         {
             ShowTable();
         }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Button1_Click(sender, e);
+            }
+        }
     }
 }
