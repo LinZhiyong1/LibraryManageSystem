@@ -19,9 +19,9 @@ namespace LibraryManageSystem
         }
         private void ShowTable()
         {
+            dataGridView1.Rows.Clear();
             bool isChecked = checkBox1.Checked;
             string statusStr = isChecked ? "where number > 0" : "";
-            dataGridView1.Rows.Clear();
             Dao dao = new Dao();
             string sql = $"select * from tb_book {statusStr}";
             IDataReader dataReader = dao.Read(sql);

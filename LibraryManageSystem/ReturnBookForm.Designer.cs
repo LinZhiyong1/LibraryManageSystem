@@ -35,6 +35,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
@@ -62,6 +63,7 @@
             this.button2.TabIndex = 7;
             this.button2.Text = "Return Book";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // button1
             // 
@@ -104,6 +106,7 @@
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column3,
             this.Column1,
             this.Column2});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -116,17 +119,23 @@
             this.dataGridView1.Size = new System.Drawing.Size(553, 374);
             this.dataGridView1.TabIndex = 4;
             // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "借阅书号";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 150;
+            // 
             // Column1
             // 
             this.Column1.HeaderText = "书号";
             this.Column1.Name = "Column1";
-            this.Column1.Width = 275;
+            this.Column1.Width = 200;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "日期";
             this.Column2.Name = "Column2";
-            this.Column2.Width = 275;
+            this.Column2.Width = 200;
             // 
             // ReturnBookForm
             // 
@@ -136,6 +145,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.Name = "ReturnBookForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "当前借书和还书";
             this.Load += new System.EventHandler(this.ReturnBookForm_Load);
             this.groupBox1.ResumeLayout(false);
@@ -153,6 +163,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
     }

@@ -31,6 +31,12 @@ namespace LibraryManageSystem
             dataReader.Close();
             dao.DaoClose();
         }
+        private string GetUUID()
+        {
+            Guid guid = Guid.NewGuid();
+            string uuid = guid.ToString().Substring(0,8);
+            return uuid;
+        }
         private void Button2_Click(object sender, EventArgs e)
         {
             string id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
@@ -41,7 +47,7 @@ namespace LibraryManageSystem
                 MessageBox.Show("库存不足");
                 return;
             }
-            string sql = $"insert into tb_lend ([uid],bid,[datetime]) values('{Model.UID}','{id}', getdate())update tb_book set number = number - 1 where id = '{id}'";
+            string sql = $"insert into tb_lend (no,[uid],bid,[datetime]) values('{GetUUID()}','{Model.UID}','{id}', getdate())update tb_book set number = number - 1 where id = '{id}'";
             Dao dao = new Dao();
             if (dao.Execute(sql)>1)
             {

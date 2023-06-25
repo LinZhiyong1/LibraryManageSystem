@@ -17,19 +17,33 @@ namespace LibraryManageSystem
         {
             InitializeComponent();
         }
-
         private void Button1_Click(object sender, EventArgs e)
         {
-
+            string description = textBox1.Text;
+            string sql = $"select * from tb_lend where bid like '%{description}%' or datetime like '%{description}%'";
+            Dao dao = new Dao();
+            IDataReader dataReader = dao.Read(sql);
+            if (dataReader == null)
+            {
+                ShowTable();
+                return;
+            }
+            while (dataReader.Read())
+            {
+                dataGridView1.Rows.Add(dataReader[0].ToString(), dataReader[2].ToString(), dataReader[3].ToString());
+            }
+            dataReader.Close();
+            dao.DaoClose();
         }
         private void ShowTable()
         {
-            string sql = $"select bid datetime from tb_lend where uid = {Model.UID} and name = {Model.UName}";
+            dataGridView1.Rows.Clear();
+            string sql = $"select * from tb_lend where uid = {Model.UID}";
             Dao dao = new Dao();
             IDataReader dataReader = dao.Read(sql);
             while (dataReader.Read())
             {
-                dataGridView1.Rows.Add(dataReader[0].ToString(), dataReader[1].ToString());
+                dataGridView1.Rows.Add(dataReader[0].ToString(), dataReader[2].ToString(), dataReader[3].ToString());
             }
             dataReader.Close();
             dao.DaoClose();
@@ -38,6 +52,19 @@ namespace LibraryManageSystem
         private void ReturnBookForm_Load(object sender, EventArgs e)
         {
             ShowTable();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            string no = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            string bid = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            string sql = $"delete from tb_lend where no = '{no}';update tb_book set number = number + 1 where id = '{bid}'";
+            Dao dao = new Dao();
+            if (dao.Execute(sql) > 1)
+            {
+                MessageBox.Show($"{Model.UName}已归还借阅号为{no}的图书");
+                ShowTable();
+            } 
         }
     }
     

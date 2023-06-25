@@ -68,5 +68,12 @@ namespace LibraryManageSystem
                 dao.DaoClose();
             }
         }
+        private void Button1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Button1_Click(this.button1, EventArgs.Empty);
+            }
+        }
     }
 }   
