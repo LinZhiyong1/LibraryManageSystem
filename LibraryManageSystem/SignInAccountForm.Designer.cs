@@ -1,6 +1,6 @@
 ﻿namespace LibraryManageSystem
 {
-    partial class AddUserForm
+    partial class SignInAccountForm
     {
         /// <summary>
         /// Required designer variable.

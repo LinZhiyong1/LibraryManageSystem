@@ -77,7 +77,7 @@ namespace LibraryManageSystem
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            AddUserForm addUserForm = new AddUserForm();
+            SignInAccountForm addUserForm = new SignInAccountForm();
             Hide();
             addUserForm.ShowDialog();
             Show();

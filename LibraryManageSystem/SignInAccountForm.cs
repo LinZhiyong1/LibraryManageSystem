@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace LibraryManageSystem
 {
-    public partial class AddUserForm : Form
+    public partial class SignInAccountForm : Form
     {
-        public AddUserForm()
+        public SignInAccountForm()
         {
             InitializeComponent();
         }
