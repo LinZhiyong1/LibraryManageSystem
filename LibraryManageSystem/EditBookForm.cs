@@ -29,7 +29,7 @@ namespace LibraryManageSystem
             textBox4.Text = press;
             textBox5.Text = number;
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             string sql = $"update tb_book set id = '{textBox1.Text}', [name] = '{textBox2.Text}', author = '{textBox3.Text}', press = '{textBox4.Text}', number = '{textBox5.Text}' where id = '{ID}'";
             Dao dao = new Dao();

@@ -75,9 +75,12 @@ namespace LibraryManageSystem
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
-            Close();
+            AddUserForm addUserForm = new AddUserForm();
+            Hide();
+            addUserForm.ShowDialog();
+            Show();
         }
     }
 }   
