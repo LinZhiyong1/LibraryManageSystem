@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace LibraryManageSystem
 {
@@ -37,11 +38,11 @@ namespace LibraryManageSystem
             string uuid = guid.ToString().Substring(0,8);
             return uuid;
         }
-        private void Button2_Click(object sender, EventArgs e)
+        private void LendBook(int index)
         {
-            string id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            string name = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-            int number = Convert.ToInt16 (dataGridView1.CurrentRow.Cells[4].Value);
+            string id = dataGridView1.Rows[index].Cells[0].Value.ToString();
+            string name = dataGridView1.Rows[index].Cells[1].Value.ToString();
+            int number = Convert.ToInt16(dataGridView1.Rows[index].Cells[4].Value);
             if (number < 1)
             {
                 MessageBox.Show("库存不足");
@@ -49,11 +50,25 @@ namespace LibraryManageSystem
             }
             string sql = $"insert into tb_lend (no,[uid],bid,[datetime]) values('{GetUUID()}','{Model.UID}','{id}', getdate())update tb_book set number = number - 1 where id = '{id}'";
             Dao dao = new Dao();
-            if (dao.Execute(sql)>1)
+            if (dao.Execute(sql) > 1)
             {
                 MessageBox.Show($"{Model.UName}已借出《{name}》");
-                ShowTable();
             }
+        }
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            int n = dataGridView1.SelectedRows.Count;
+            if (n > 1)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    LendBook(dataGridView1.Rows[i].Index);
+                }
+                ShowTable();
+                return;
+            }
+            LendBook(dataGridView1.CurrentRow.Index);
+            ShowTable();
         }
 
         private void Button1_Click(object sender, EventArgs e)

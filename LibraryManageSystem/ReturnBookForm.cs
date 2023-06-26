@@ -54,18 +54,31 @@ namespace LibraryManageSystem
         {
             ShowTable();
         }
-
-        private void Button2_Click(object sender, EventArgs e)
+        private void ReturnBook(int index)
         {
-            string no = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            string bid = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            string no = dataGridView1.Rows[index].Cells[0].Value.ToString();
+            string bid = dataGridView1.Rows[index].Cells[1].Value.ToString();
             string sql = $"delete from tb_lend where no = '{no}';update tb_book set number = number + 1 where id = '{bid}'";
             Dao dao = new Dao();
             if (dao.Execute(sql) > 1)
             {
                 MessageBox.Show($"{Model.UName}已归还借阅号为{no}的图书");
+            }
+        }
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            int n = dataGridView1.SelectedRows.Count;
+            if (n > 1)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    ReturnBook(dataGridView1.Rows[i].Index);
+                }
                 ShowTable();
-            } 
+                return;
+            }
+            ReturnBook(dataGridView1.CurrentRow.Index);
+            ShowTable();
         }
 
         private void TextBox1_KeyDown(object sender, KeyEventArgs e)
