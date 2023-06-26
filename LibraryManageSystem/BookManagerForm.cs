@@ -92,7 +92,14 @@ namespace LibraryManageSystem
                     return;
                 }
                 string sql = $"delete from tb_book where id = '{id}'";
+                string checksql = $"select * from tb_lend where bid = '{id}'";
                 Dao dao = new Dao();
+                IDataReader dataReader = dao.Read(checksql);
+                if (dataReader.Read())
+                {
+                    MessageBox.Show($"bid:{id}还有借出记录！删除失败！");
+                    return;
+                } 
                 if (dao.Execute(sql) > 0)
                 {
                     MessageBox.Show("删除成功！");
