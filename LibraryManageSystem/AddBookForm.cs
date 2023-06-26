@@ -30,6 +30,7 @@ namespace LibraryManageSystem
             if(lines > 0)
             {
                 MessageBox.Show("添加成功！");
+                Close();
             }
             else
             {
@@ -45,6 +46,14 @@ namespace LibraryManageSystem
         private void ClearTextBox()
         {
             foreach (Control c in Controls) { if (c is TextBox) { c.Text = ""; } }
+        }
+
+        private void AddBookForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Button1_Click(sender, e);
+            }
         }
     }
 }

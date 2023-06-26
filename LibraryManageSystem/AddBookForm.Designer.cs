@@ -164,9 +164,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.KeyPreview = true;
             this.Name = "AddBookForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "添加图书";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddBookForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
