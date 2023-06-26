@@ -22,6 +22,10 @@ namespace LibraryManageSystem
             BookManagerForm bookForm = new BookManagerForm();
             bookForm.ShowDialog();
         }
-       
+
+        private void AdminForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

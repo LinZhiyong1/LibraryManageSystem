@@ -241,15 +241,17 @@
             this.radioButtonRose1.UseVisualStyleBackColor = true;
             this.radioButtonRose1.Click += new System.EventHandler(this.RadioButtonRose1_Click);
             // 
-            // AddUserForm
+            // SignInAccountForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(274, 242);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
-            this.Name = "AddUserForm";
+            this.MaximizeBox = false;
+            this.Name = "SignInAccountForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddUserForm";
             this.Load += new System.EventHandler(this.AddUserForm_Load);
