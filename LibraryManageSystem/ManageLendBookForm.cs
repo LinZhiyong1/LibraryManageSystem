@@ -1,0 +1,90 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace LibraryManageSystem
+{
+    public partial class ManageLendBookForm : Form
+    {
+        public ManageLendBookForm()
+        {
+            InitializeComponent();
+        }
+
+        private void ManageLendBookForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Button1_Click(sender, e);
+            }
+        }
+        private void ShowTable()
+        {
+            dataGridView1.Rows.Clear();
+            string sql = $"select * from tb_lend";
+            Dao dao = new Dao();
+            IDataReader dataReader = dao.Read(sql);
+            while (dataReader.Read())
+            {
+                dataGridView1.Rows.Add(dataReader[0].ToString(), dataReader[1].ToString(), dataReader[2].ToString(), dataReader[3].ToString());
+            }
+            dataReader.Close();
+            dao.DaoClose();
+        }
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            string description = textBox1.Text;
+            string sql = $"select * from tb_lend where uid like '%{description}%' or bid like '%{description}%'";
+            Dao dao = new Dao();
+            IDataReader dataReader = dao.Read(sql);
+            if (dataReader == null)
+            {
+                ShowTable();
+                return;
+            }
+            while (dataReader.Read())
+            {
+                dataGridView1.Rows.Add(dataReader[0].ToString(), dataReader[1].ToString(), dataReader[2].ToString(), dataReader[3].ToString());
+            }
+            dataReader.Close();
+            dao.DaoClose();
+        }
+        private void ManageLendBookForm_Load(object sender, EventArgs e)
+        {
+            ShowTable();
+        }
+        private void ReturnBook(int index)
+        {
+            string no = dataGridView1.Rows[index].Cells[0].Value.ToString();
+            string bid = dataGridView1.Rows[index].Cells[2].Value.ToString();
+            string sql = $"delete from tb_lend where no = '{no}';update tb_book set number = number + 1 where id = '{bid}'";
+            Dao dao = new Dao();
+            if (dao.Execute(sql) > 1)
+            {
+                MessageBox.Show($"已归还借阅号为{no}的图书");
+            }
+        }
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            int n = dataGridView1.SelectedRows.Count;
+            if (n > 1)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    ReturnBook(dataGridView1.Rows[i].Index);
+                }
+                ShowTable();
+                return;
+            }
+            ReturnBook(dataGridView1.CurrentRow.Index);
+            ShowTable();
+        }
+    }
+}

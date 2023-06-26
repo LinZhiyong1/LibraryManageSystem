@@ -30,6 +30,7 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.系统ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.jieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.管理图书ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.系统ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,9 +55,17 @@
             // 
             // 系统ToolStripMenuItem1
             // 
+            this.系统ToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.jieToolStripMenuItem});
             this.系统ToolStripMenuItem1.Name = "系统ToolStripMenuItem1";
             this.系统ToolStripMenuItem1.Size = new System.Drawing.Size(44, 21);
             this.系统ToolStripMenuItem1.Text = "系统";
+            // 
+            // jieToolStripMenuItem
+            // 
+            this.jieToolStripMenuItem.Name = "jieToolStripMenuItem";
+            this.jieToolStripMenuItem.Size = new System.Drawing.Size(89, 22);
+            this.jieToolStripMenuItem.Text = "jie";
             // 
             // 管理图书ToolStripMenuItem
             // 
@@ -68,8 +77,9 @@
             // 帮助ToolStripMenuItem1
             // 
             this.帮助ToolStripMenuItem1.Name = "帮助ToolStripMenuItem1";
-            this.帮助ToolStripMenuItem1.Size = new System.Drawing.Size(44, 21);
-            this.帮助ToolStripMenuItem1.Text = "帮助";
+            this.帮助ToolStripMenuItem1.Size = new System.Drawing.Size(92, 21);
+            this.帮助ToolStripMenuItem1.Text = "图书借阅管理";
+            this.帮助ToolStripMenuItem1.Click += new System.EventHandler(this.帮助ToolStripMenuItem1_Click);
             // 
             // 系统ToolStripMenuItem
             // 
@@ -131,5 +141,6 @@
         private System.Windows.Forms.ToolStripMenuItem 管理图书ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem jieToolStripMenuItem;
     }
 }

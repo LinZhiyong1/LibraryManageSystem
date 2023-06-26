@@ -52,6 +52,12 @@
     <Compile Include="AddBookForm.Designer.cs">
       <DependentUpon>AddBookForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageLendBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageLendBookForm.Designer.cs">
+      <DependentUpon>ManageLendBookForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SignInAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </Compile>
     <EmbeddedResource Include="AddBookForm.resx">
       <DependentUpon>AddBookForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageLendBookForm.resx">
+      <DependentUpon>ManageLendBookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignInAccountForm.resx">
       <DependentUpon>SignInAccountForm.cs</DependentUpon>

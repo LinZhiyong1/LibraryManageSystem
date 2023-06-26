@@ -27,5 +27,11 @@ namespace LibraryManageSystem
         {
 
         }
+
+        private void 帮助ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ManageLendBookForm manageLendBookForm = new ManageLendBookForm();
+            manageLendBookForm.ShowDialog();
+        }
     }
 }
