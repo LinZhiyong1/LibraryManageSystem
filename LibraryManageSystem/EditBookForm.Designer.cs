@@ -165,10 +165,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "EditBookForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "修改图书信息";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditBookForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

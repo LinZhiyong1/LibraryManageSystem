@@ -26,6 +26,13 @@ namespace LibraryManageSystem
                 return;
             }
             string sql = $"insert into tb_book values('{textBox1.Text}','{textBox2.Text}','{textBox3.Text}','{textBox4.Text}','{textBox5.Text}')";
+            string checkSql = $"select * from tb_book where id = '{textBox1.Text}'";
+            IDataReader dataReader = dao.Read(checkSql);
+            if (dataReader.Read())
+            {
+                MessageBox.Show("该书号已存在！请重新输入！");
+                return;
+            } 
             int lines = dao.Execute(sql);
             if(lines > 0)
             {

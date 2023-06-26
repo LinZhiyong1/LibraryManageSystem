@@ -44,5 +44,13 @@ namespace LibraryManageSystem
         {
             Close();
         }
+
+        private void EditBookForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Button1_Click(sender, e);
+            }
+        }
     }
 }
