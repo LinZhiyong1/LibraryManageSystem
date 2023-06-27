@@ -42,8 +42,8 @@ namespace LibraryManageSystem
                     MessageBox.Show("登录失败！请检查用户名及密码！");
                     return;
                 }
-                Model.UID = dataReader["id"].ToString();
-                Model.UName = dataReader["name"].ToString();
+                User.UserID = dataReader["id"].ToString();
+                User.UserName = dataReader["name"].ToString();
                 UserForm userForm = new UserForm();
                 this.Hide();
                 userForm.ShowDialog();
@@ -83,4 +83,4 @@ namespace LibraryManageSystem
             Show();
         }
     }
-}   
+}

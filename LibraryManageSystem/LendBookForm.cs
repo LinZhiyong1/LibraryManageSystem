@@ -48,11 +48,11 @@ namespace LibraryManageSystem
                 MessageBox.Show("库存不足");
                 return;
             }
-            string sql = $"insert into tb_lend (no,[uid],bid,[datetime]) values('{GetUUID()}','{Model.UID}','{id}', getdate())update tb_book set number = number - 1 where id = '{id}'";
+            string sql = $"insert into tb_lend (no,[uid],bid,[datetime]) values('{GetUUID()}','{User.UserID}','{id}', getdate())update tb_book set number = number - 1 where id = '{id}'";
             Dao dao = new Dao();
             if (dao.Execute(sql) > 1)
             {
-                MessageBox.Show($"{Model.UName}已借出《{name}》");
+                MessageBox.Show($"{User.UserName}已借出《{name}》");
             }
         }
         private void Button2_Click(object sender, EventArgs e)

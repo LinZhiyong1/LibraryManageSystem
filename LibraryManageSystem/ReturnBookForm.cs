@@ -39,7 +39,7 @@ namespace LibraryManageSystem
         private void ShowTable()
         {
             dataGridView1.Rows.Clear();
-            string sql = $"select * from tb_lend where uid = {Model.UID}";
+            string sql = $"select * from tb_lend where uid = {User.UserID}";
             Dao dao = new Dao();
             IDataReader dataReader = dao.Read(sql);
             while (dataReader.Read())
@@ -62,7 +62,7 @@ namespace LibraryManageSystem
             Dao dao = new Dao();
             if (dao.Execute(sql) > 1)
             {
-                MessageBox.Show($"{Model.UName}已归还借阅号为{no}的图书");
+                MessageBox.Show($"{User.UserName}已归还借阅号为{no}的图书");
             }
         }
         private void Button2_Click(object sender, EventArgs e)
