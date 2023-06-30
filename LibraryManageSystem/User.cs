@@ -8,8 +8,8 @@ namespace LibraryManageSystem
 {
     public class User
     {
-        public static string UserID { get; }
-        public static string UserName { get; }
+        public static string UserID { get; set; }
+        public static string UserName { get; set; }
         public string Pssword { get; }
         public string FullName { get; }
         public string Email { get; }

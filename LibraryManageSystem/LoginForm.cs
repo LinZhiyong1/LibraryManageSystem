@@ -27,51 +27,58 @@ namespace LibraryManageSystem
                 MessageBox.Show("用户名不能为空！");
                 return;
             }
+
             if (string.IsNullOrEmpty(textBox2.Text))
             {
                 MessageBox.Show("请输入密码！");
                 return;
             }
+
             if (radioButtonUser.Checked == true)
             {
                 Dao dao = new Dao();
-                string sql = $"select * from tb_user where id = '{textBox1.Text}' and password = '{textBox2.Text}'";
+
+                string sql = $"SELECT * FROM LibraryUser WHERE userID = '{textBox1.Text}' and password = '{textBox2.Text}'";
+
                 IDataReader dataReader = dao.Read(sql);
+
                 if (!dataReader.Read())
                 {
                     MessageBox.Show("登录失败！请检查用户名及密码！");
                     return;
                 }
-                User.UserID = dataReader["id"].ToString();
-                User.UserName = dataReader["name"].ToString();
+
+                User.UserID = dataReader["userID"].ToString();
+                User.UserName = dataReader["userName"].ToString();
+
                 UserForm userForm = new UserForm();
+
                 this.Hide();
                 userForm.ShowDialog();
                 this.Show();
                 dao.DaoClose();
             }
+
             if (radioButtonAdmin.Checked == true)
             {
                 Dao dao = new Dao();
-                string sql = $"select * from tb_admin where id = '{textBox1.Text}' and password = '{textBox2.Text}'";
+
+                string sql = $"select * from LibraryAdmin where adminID = {textBox1.Text} and password = '{textBox2.Text}'";
+
                 IDataReader dataReader = dao.Read(sql);
+
                 if (!dataReader.Read())
                 {
                     MessageBox.Show("登录失败!请检查用户名及密码！");
                     return;
                 }
+
                 AdminForm adminForm = new AdminForm();
+
                 this.Hide();
                 adminForm.ShowDialog();
                 this.Show();
                 dao.DaoClose();
-            }
-        }
-        private void LoginForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Button1_Click(sender, e);
             }
         }
 
@@ -81,6 +88,14 @@ namespace LibraryManageSystem
             Hide();
             addUserForm.ShowDialog();
             Show();
+        }
+
+        private void LoginForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Button1_Click(sender, e);
+            }
         }
     }
 }

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,29 +16,49 @@ namespace LibraryManageSystem
 {
     public partial class LendBookForm : Form
     {
+        public DataSet ds = null;
+        Model model = new Model();
         public LendBookForm()
         {
             InitializeComponent();
+            ds = new DataSet("LibraryBook");
         }
         private void ShowTable()
         {
-            bool isChecked = checkBox1.Checked;
-            string statusStr = isChecked ? "where number > 0" : "";
-            dataGridView1.Rows.Clear();
-            Dao dao = new Dao();
-            string sql = $"select * from tb_book {statusStr}";
-            IDataReader dataReader = dao.Read(sql);
-            while (dataReader.Read())
+            try
             {
-                dataGridView1.Rows.Add(dataReader[0].ToString(), dataReader[1].ToString(), dataReader[2].ToString(), dataReader[3].ToString(), dataReader[4].ToString());
+                dataGridView1.Rows.Clear();
+
+                bool isChecked = checkBox1.Checked;
+
+                string sql =
+                    $"select * from LibraryBook " +
+                    $"{(isChecked ? "where availableCount > 0" : "")} ";
+
+                SqlDataAdapter adapter = model.Adapter(sql);
+
+                adapter.Fill(ds, "LibraryBook");
+
+                dataGridView1.DataSource = ds.Tables["LibraryBook"];
             }
-            dataReader.Close();
-            dao.DaoClose();
+
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message);
+            }
+
+            finally
+            {
+                model.ModelClose();
+            }
+
         }
+
         private string GetUUID()
         {
             Guid guid = Guid.NewGuid();
-            string uuid = guid.ToString().Substring(0,8);
+            string uuid = guid.ToString().Substring(0, 8);
             return uuid;
         }
         private void LendBook(int index)
@@ -55,6 +78,51 @@ namespace LibraryManageSystem
                 MessageBox.Show($"{User.UserName}已借出《{name}》");
             }
         }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+
+            Model model = new Model();
+
+            try
+            {
+                dataGridView1.Rows.Clear();
+
+                string desc = textBox1.Text;
+
+                if (string.IsNullOrEmpty(desc))
+                {
+                    ShowTable();
+                    return;
+                }
+
+                bool isChecked = checkBox1.Checked;
+
+                string sql =
+                    $"select * from LibraryBook " +
+                    $"{(isChecked ? "where availableCount > 0" : "")} ";
+
+                SqlDataAdapter adapter = model.Adapter(sql);
+
+                adapter.Fill(ds, "LibraryBook");
+
+                dataGridView1.DataSource = ds.Tables["LibraryBook"];
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+            finally
+            {
+                if (!string.IsNullOrEmpty(textBox1.Text))
+                {
+                    model.ModelClose();
+                }
+            }
+        }
+
         private void Button2_Click(object sender, EventArgs e)
         {
             int n = dataGridView1.SelectedRows.Count;
@@ -71,27 +139,7 @@ namespace LibraryManageSystem
             ShowTable();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            string description = textBox1.Text;
-            if (string.IsNullOrEmpty(description))
-            {
-                ShowTable();
-                return;
-            }
-            bool isChecked = checkBox1.Checked;
-            string statusStr = isChecked ? "where number > 0 and " : "where";
-            dataGridView1.Rows.Clear();
-            Dao dao = new Dao();
-            string sql = $"select * from tb_book {statusStr} id like '%{description}%' or name like '%{description}%'";
-            IDataReader dataReader = dao.Read(sql);
-            while (dataReader.Read())
-            {
-                dataGridView1.Rows.Add(dataReader[0].ToString(), dataReader[1].ToString(), dataReader[2].ToString(), dataReader[3].ToString(), dataReader[4].ToString());
-            }
-            dataReader.Close();
-            dao.DaoClose();
-        }
+        
 
         private void LendBookForm_Load(object sender, EventArgs e)
         {

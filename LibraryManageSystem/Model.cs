@@ -10,27 +10,29 @@ using static System.Resources.ResXFileRef;
 
 namespace LibraryManageSystem
 {
-    public class Model
+    class Model
     {
-        public DataSet LibData;
-        public Model(int userID)
+        SqlDataAdapter adapter;
+        SqlCommand cmd; 
+        SqlConnection conn; 
+        public SqlConnection Connection()
         {
             string sqlServer = "Data Source=YANFA05;Initial Catalog=LibraryDB;Integrated Security=True";
-            SqlConnection conn = new SqlConnection(sqlServer);
+            conn = new SqlConnection(sqlServer);
             conn.Open();
-            string sql = $"select * from LibraryUser where userID = {userID}" +
-                $"select * from LibraryBook" +
-                $"select * from LibraryRecord";
-            SqlDataAdapter da = new SqlDataAdapter(sql, conn);
-            da.TableMappings.Add("Table", "User");
-            da.TableMappings.Add("Table1", "Book");
-            da.TableMappings.Add("Table2", "Record");
-            LibData = new DataSet();
-            da.Fill(LibData);
-            DataTable user = LibData.Tables["User"];
-             Convert.ToInt16(user.Rows[userID].ToString());
-            DataTable bookList = LibData.Tables["Book"];
-            DataTable bookRecord = LibData.Tables["Record"];
+            return conn;
+        }
+
+        public SqlDataAdapter Adapter(string sql)
+        {
+            cmd = new SqlCommand(sql, Connection());
+            adapter = new SqlDataAdapter(cmd);
+            return adapter;
+        }
+
+        public void ModelClose()
+        {
+            conn.Close();
         }
     }
 }

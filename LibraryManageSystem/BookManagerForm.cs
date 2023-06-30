@@ -13,13 +13,25 @@ namespace LibraryManageSystem
 {
     public partial class BookManagerForm : Form
     {
+        public DataTable book;
+
         public BookManagerForm()
         {
             InitializeComponent();
         }
+        public BookManagerForm(DataTable book)
+        {
+            InitializeComponent();
+            this.book = book;
+        }
         private void BookManagerForm_Load(object sender, EventArgs e)
         {
-            ShowTable();
+
+            dataGridView1.DataSource = book;
+            /*for (int i = 0; i < dataGridView1.ColumnCount; i++)
+            {
+                dataGridView1.Columns[0].HeaderText = dataGridView1.;
+            }*/
             dataGridView1.ClearSelection();
         }
         private void ShowTable()
